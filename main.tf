@@ -3,8 +3,7 @@ variable "username" {
 
 provider "aws" { 
   bucket         = "terraform-up-and-running-state"
-    key            = "global/s3/terraform.tfstate"
-    region         = "us-east-2"
+  region         = "us-east-2"
 }
 
 resource "aws_s3_bucket" "terraform_state" {
