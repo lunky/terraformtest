@@ -1,46 +1,20 @@
 variable "username" {
 }
 
-provider "random" { # an empty for destroying old resources
+provider "aws" { 
 }
 
-resource "null_resource" "randomm" {
-  triggers = {
-    username = var.username
-  }
-  # only changes when configuration edited, or when username changes.
-  provisioner "local-exec" {
-    command = "curl https://beyondgrep.com/ack-v3.1.1 > ./ack && chmod 0755 ./ack"
-  }
-  provisioner "local-exec" {
-    command = "./ack randomm"
-  }
-}
-
-output "random" {
-  value = "Changed to: ${null_resource.randomm.id}"
-}
-
-output "username" {
-  value = "Username is ${var.username}. Extra text."
-}
-
-data "terraform_remote_state" "dev" {
-  backend = "remote"
-  workspace = "dev"
-  config = {
-    organization = "midworld"
-    workspaces = {
-      # name = "minimum-dev"
-      prefix = "minimum-"
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "midworld-terraform-up-and-running-state"  # Enable versioning so we can see the full revision history of our
+  # state files
+  versioning {
+    enabled = true
+  }  # Enable server-side encryption by default
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
     }
   }
-}
-
-output "username-dev" {
-  value = data.terraform_remote_state.dev.outputs.username
-}
-
-output "all-dev" {
-  value = data.terraform_remote_state.dev.outputs
 }
