@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "midworld-terraform-up-and-running-state"  # Enable versioning so we can see the full revision history of our
+  bucket = "midworld-terraform-up-and-running-state-2"  # Enable versioning so we can see the full revision history of our
   # state files
   versioning {
     enabled = true
@@ -20,24 +20,10 @@ resource "aws_s3_bucket" "terraform_state" {
   }
 }
 
-resource "aws_dynamodb_table" "terraform_locks" {
-  name         = "terraform-up-and-running-locks"
-  billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "LockID"  
-  
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
-
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "midworld-terraform-up-and-running-state"
-    key            = "global/s3/terraform.tfstate"
-    region         = "us-east-2"    # Replace this with your DynamoDB table name!
-    dynamodb_table = "terraform-up-and-running-locks"
+    bucket         = "midworld-terraform-up-and-running-state-2"
     encrypt        = true
   }
 }
