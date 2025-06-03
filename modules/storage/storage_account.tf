@@ -32,7 +32,7 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
   local_user_enabled                = "true"
   location                          = "westus2"
   min_tls_version                   = "TLS1_2"
-  name                              = "elfdevstorageaccount"
+  name                              = "elfdevstorageaccount2"
 
   network_rules {
     bypass         = ["AzureServices"]
