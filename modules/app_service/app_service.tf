@@ -1,6 +1,6 @@
 resource "azurerm_linux_web_app" "tfer--elf-web-linux" {
   name                = "elf-web-linux"
-  resource_group_name = "RG-Initial"
+  resource_group_name = var.resource_group_name
   location            = "westus2"
   service_plan_id     = azurerm_service_plan.elf_service_plan.id
 

@@ -68,7 +68,7 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
     }
   }
 
-  resource_group_name = "RG-Initial"
+  resource_group_name = var.resource_group_name
   sftp_enabled        = "false"
 
   share_properties {

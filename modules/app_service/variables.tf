@@ -14,3 +14,8 @@ variable "storage_blob_endpoint" {
   description = "Storage account blob endpoint URL"
   type        = string
 }
+
+variable "resource_group_name" {
+  type        = string
+  description = "Name of the resource group"
+}
