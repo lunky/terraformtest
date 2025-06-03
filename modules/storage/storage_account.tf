@@ -6,8 +6,7 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
   allow_nested_items_to_be_public = "true"
 
   blob_properties {
-    change_feed_enabled           = "false"
-    change_feed_retention_in_days = "146000"
+    change_feed_enabled = false
 
     container_delete_retention_policy {
       days = "7"
