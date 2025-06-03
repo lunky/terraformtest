@@ -9,3 +9,8 @@ variable "db_connection_string" {
   type        = string
   sensitive   = true
 }
+
+variable "storage_blob_endpoint" {
+  description = "Storage account blob endpoint URL"
+  type        = string
+}

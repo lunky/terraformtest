@@ -2,11 +2,12 @@ resource "azurerm_linux_web_app" "tfer--elf-web-linux" {
   name                = "elf-web-linux"
   resource_group_name = "RG-Initial"
   location            = "westus2"
-  service_plan_id     = "/subscriptions/eff35dec-1f47-4435-ba59-73b5bc42d04c/resourceGroups/RG-Initial/providers/Microsoft.Web/serverFarms/elf-app-service-plan"
+  service_plan_id     = azurerm_service_plan.elf_service_plan.id
+
 
   app_settings = {
     ASPNETCORE_FORWARDEDHEADERS_ENABLED = "true"
-    AzureStorage__BaseUrl               = "https://elfdevstorageaccount.blob.core.windows.net/"
+    AzureStorage__BaseUrl               = var.storage_blob_endpoint
     AzureStorage__ConnectionString      = var.storage_connection_string
     AzureStorage__ContainerName         = "images"
     WEBSITE_FORWARDED_HOST_HEADER_NAME  = "X-Forwarded-Host"

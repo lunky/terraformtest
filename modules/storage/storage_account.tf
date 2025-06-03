@@ -7,7 +7,7 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
 
   blob_properties {
     change_feed_enabled           = "false"
-    change_feed_retention_in_days = "0"
+    change_feed_retention_in_days = "146000"
 
     container_delete_retention_policy {
       days = "7"
@@ -25,7 +25,6 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
   cross_tenant_replication_enabled  = "false"
   default_to_oauth_authentication   = "false"
   dns_endpoint_type                 = "Standard"
-  enable_https_traffic_only         = "true"
   https_traffic_only_enabled        = "true"
   infrastructure_encryption_enabled = "false"
   is_hns_enabled                    = "false"
@@ -49,14 +48,14 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
     hour_metrics {
       enabled               = "false"
       include_apis          = "false"
-      retention_policy_days = "0"
+      retention_policy_days = "365"
       version               = "1.0"
     }
 
     logging {
       delete                = "false"
       read                  = "false"
-      retention_policy_days = "0"
+      retention_policy_days = "365"
       version               = "1.0"
       write                 = "false"
     }
@@ -64,7 +63,7 @@ resource "azurerm_storage_account" "tfer--elfdevstorageaccount" {
     minute_metrics {
       enabled               = "false"
       include_apis          = "false"
-      retention_policy_days = "0"
+      retention_policy_days = "365"
       version               = "1.0"
     }
   }
