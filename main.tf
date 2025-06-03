@@ -1,29 +1,17 @@
-variable "username" {
+# Network resources
+module "network" {
+  source = "./modules/network"
 }
 
-provider "aws" { 
-  region         = "us-east-2"
+# App Service resources
+module "app_service" {
+  source = "./modules/app_service"
+  
+  storage_connection_string = var.storage_connection_string
+  db_connection_string     = var.db_connection_string
 }
 
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "midworld-terraform-up-and-running-state-2"  # Enable versioning so we can see the full revision history of our
-  # state files
-  versioning {
-    enabled = true
-  }  # Enable server-side encryption by default
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-}
-
-terraform {
-  backend "s3" {
-    # Replace this with your bucket name!
-    bucket         = "midworld-terraform-up-and-running-state-2"
-    encrypt        = true
-  }
+# Storage resources
+module "storage" {
+  source = "./modules/storage"
 }
