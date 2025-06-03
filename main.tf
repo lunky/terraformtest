@@ -19,3 +19,8 @@ module "storage" {
   source = "./modules/storage"
   resource_group_name       = azurerm_resource_group.rg.name
 }
+
+module "database" {
+  source = "./modules/database"
+  resource_group_name       = azurerm_resource_group.rg.name
+}
