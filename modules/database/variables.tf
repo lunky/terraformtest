@@ -3,6 +3,6 @@ variable "resource_group_name" {
   description = "Name of the resource group"
 }
 variable "postgres_admin_password" {
-  default = ""
+  type= string
   sensitive = true
 }

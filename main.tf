@@ -23,4 +23,5 @@ module "storage" {
 module "database" {
   source = "./modules/database"
   resource_group_name       = azurerm_resource_group.rg.name
+  postgres_admin_password   = var.postgres_admin_password
 }
