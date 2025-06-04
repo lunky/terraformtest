@@ -8,6 +8,5 @@ resource "azurerm_postgresql_flexible_server" "this" {
   version               = "13"
   storage_mb            = 32768
   delegated_subnet_id   = null
-  zone                  = ""  # Explicitly set to empty string to match current state
   tags                  = var.tags
 }
