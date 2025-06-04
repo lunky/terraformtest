@@ -10,9 +10,4 @@ resource "azurerm_postgresql_flexible_server" "this" {
   delegated_subnet_id   = null
   zone                  = "1"
   tags                  = var.tags
-
-  high_availability {
-    mode                      = "SameZone"
-    standby_availability_zone = "1"  # Must match the primary zone
-  }
 }
