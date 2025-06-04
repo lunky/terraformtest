@@ -1,20 +1,40 @@
 # variables.tf
-variable "resource_group" {}
-variable "default_resource_group" {}
-variable "vnet_name" {}
-variable "vnet_link_name" {}
-variable "location_east_us" {}
-variable "location_west_us2" {}
-variable "postgres_name" {}
+# these must be defined in tfcloud
+variable "postgres_name" { }
 variable "postgres_admin_password" { sensitive = true }
-variable "private_dns_zone_name" {}
-variable "app_service_plan_name_1" {}
-variable "app_service_plan_name_2" {}
-variable "web_app_name" {}
-variable "storage_account_name" {}
-variable "front_door_name" {}
-variable "waf_name" {}
-variable "front_door_backend_host" {}
-variable "action_group_name" {}
-variable "log_analytics_workspace_name" {}
-
+variable "private_dns_zone_name" {
+}
+# default values for variables used in the root module
+variable "resource_group" {
+  default = "resource-group"
+}
+variable "vnet_name" {
+  default = "vnet"
+}
+variable "vnet_link_name" {
+    default = "vnet-link"
+}
+variable "location" {
+  default = "West US 3"
+}
+variable "app_service_plan_name" {
+    default = "elf-app-service-plan"
+}
+variable "web_app_name" {
+    default = "elf-web-app"
+}
+variable "storage_account_name" {
+    default = "elfstorage"
+}
+variable "front_door_name" {
+    default = "elffrontdoor"
+}
+variable "waf_name" {
+    default = "elfwafpolicy"
+}
+variable "action_group_name" {
+    default = "elf-action-group"
+}
+variable "log_analytics_workspace_name" {
+    default = "elf-log-analytics-workspace"
+}

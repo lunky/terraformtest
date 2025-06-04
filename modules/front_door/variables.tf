@@ -2,5 +2,3 @@
 variable "name" {}
 variable "resource_group_name" {}
 variable "waf_policy_id" {}
-variable "backend_host" {}
-
