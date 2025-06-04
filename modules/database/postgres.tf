@@ -26,5 +26,4 @@ resource "azurerm_postgresql_flexible_server" "elf_postgres" {
     active_directory_auth_enabled = false
     password_auth_enabled         = true
   }
-  public_network_access_enabled = true
 }
