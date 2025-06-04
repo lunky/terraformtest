@@ -25,9 +25,9 @@ module "postgres" {
 
 module "app_service_plan" {
   source              = "./modules/app_service_plan"
-  name                = local.app_service_plan_name
+  name = local.app_service_plan_name
   # location            = var.location
-  location            = "East US" # hardcoded for now - there doesn't seem to be an app service plan in WestUs
+  location = "East US" # hardcoded for now - there doesn't seem to be an app service plan in WestUs
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
 }
@@ -46,6 +46,7 @@ module "front_door" {
   name                = local.front_door_name
   resource_group_name = module.resource_group.name
   waf_policy_id       = module.waf.id
+  backend_host        = module.web_app.url
   tags                = local.default_tags
 }
 
