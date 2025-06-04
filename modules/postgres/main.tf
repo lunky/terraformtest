@@ -8,10 +8,10 @@ resource "azurerm_postgresql_flexible_server" "this" {
   version               = "13"
   storage_mb            = 32768
   delegated_subnet_id   = null
-  zone                  = "1"  # Explicitly set the zone
+  zone                  = "1"  # Primary zone
   tags                  = var.tags
 
   high_availability {
-    mode                      = "Disabled"
+    mode = "SameZone"  # Using SameZone as it's typically less expensive than ZoneRedundant
   }
 }
