@@ -1,5 +1,5 @@
 resource "azurerm_postgresql_flexible_server" "elf_postgres" {
-  name                = "elf-dev-v2"
+  name                = "stg-elf-dev-v2"
   resource_group_name = var.resource_group_name
   location            = "East US"
   sku_name            = "B_Standard_B1ms"
