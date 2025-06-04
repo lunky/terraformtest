@@ -1,29 +1,20 @@
-variable "storage_connection_string" {
-  default = ""
-}
+# variables.tf
+variable "resource_group" {}
+variable "default_resource_group" {}
+variable "vnet_name" {}
+variable "vnet_link_name" {}
+variable "location_east_us" {}
+variable "location_west_us2" {}
+variable "postgres_name" {}
+variable "postgres_admin_password" { sensitive = true }
+variable "private_dns_zone_name" {}
+variable "app_service_plan_name_1" {}
+variable "app_service_plan_name_2" {}
+variable "web_app_name" {}
+variable "storage_account_name" {}
+variable "front_door_name" {}
+variable "waf_name" {}
+variable "front_door_backend_host" {}
+variable "action_group_name" {}
+variable "log_analytics_workspace_name" {}
 
-variable "db_connection_string" {
-  default = ""
-}
-
-variable "ARM_TENANT_ID" {
-  description = "Azure Tenant ID"
-  type        = string
-}
-
-variable "ARM_CLIENT_ID" {
-  description = "Azure Client ID"
-  type        = string
-}
-
-variable "ARM_CLIENT_SECRET" {
-  description = "Azure Client Secret"
-  type        = string
-  sensitive   = true
-}
-
-variable "postgres_admin_password" {
-  description = "The administrator password for PostgreSQL server"
-  type        = string
-  sensitive   = true
-}
