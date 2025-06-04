@@ -12,6 +12,7 @@ module "app_service" {
   db_connection_string      = var.db_connection_string
   storage_blob_endpoint     = module.storage.storage_blob_endpoint
   resource_group_name       = azurerm_resource_group.rg.name
+  postgres_admin_password   = var.postgres_admin_password
 }
 
 # Storage resources
