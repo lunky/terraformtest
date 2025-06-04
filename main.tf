@@ -1,9 +1,17 @@
 # Root main.tf
+module "resource_group" {
+  source   = "./modules/resource_group"
+  name     = local.resource_group
+  location = var.location
+  tags     = local.default_tags
+}
+
 module "network" {
   source              = "./modules/network"
   name                = local.vnet_name
   location            = var.location
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }
 
 module "postgres" {
@@ -12,6 +20,7 @@ module "postgres" {
   location            = var.location
   admin_password      = var.postgres_admin_password
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }
 
 module "app_service_plan" {
@@ -19,6 +28,7 @@ module "app_service_plan" {
   name                = local.app_service_plan_name
   location            = var.location
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }
 
 module "web_app" {
@@ -27,6 +37,7 @@ module "web_app" {
   location            = var.location
   resource_group_name = local.resource_group
   app_service_plan_id = module.app_service_plan.id
+  tags                = local.default_tags
 }
 
 module "front_door" {
@@ -34,18 +45,21 @@ module "front_door" {
   name                = local.front_door_name
   resource_group_name = local.resource_group
   waf_policy_id       = module.waf.id
+  tags                = local.default_tags
 }
 
 module "waf" {
   source              = "./modules/waf"
   name                = local.waf_name
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }
 
 module "private_dns_zone" {
   source              = "./modules/private_dns_zone"
   name                = local.private_dns_zone_name
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }
 
 module "virtual_network_link" {
@@ -54,6 +68,7 @@ module "virtual_network_link" {
   resource_group_name = local.resource_group
   dns_zone_name       = local.private_dns_zone_name
   virtual_network_id  = module.network.id
+  tags                = local.default_tags
 }
 
 module "storage" {
@@ -61,6 +76,7 @@ module "storage" {
   name                = local.storage_account_name
   location            = var.location
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }
 
 module "action_group" {
@@ -69,6 +85,7 @@ module "action_group" {
   resource_group_name = local.resource_group
   short_name          = "act"
   email_receiver      = "alerts@example.com"
+  tags                = local.default_tags
 }
 
 module "log_analytics" {
@@ -76,4 +93,5 @@ module "log_analytics" {
   name                = local.log_analytics_workspace_name
   location            = var.location
   resource_group_name = local.resource_group
+  tags                = local.default_tags
 }

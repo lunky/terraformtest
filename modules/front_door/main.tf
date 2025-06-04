@@ -3,11 +3,13 @@ resource "azurerm_cdn_frontdoor_profile" "this" {
   name                = "${var.name}-profile"
   resource_group_name = var.resource_group_name
   sku_name            = "Standard_AzureFrontDoor"
+  tags                = var.tags
 }
 
 resource "azurerm_cdn_frontdoor_endpoint" "this" {
-  name                = "${var.name}-endpoint"
+  name                     = "${var.name}-endpoint"
   cdn_frontdoor_profile_id = azurerm_cdn_frontdoor_profile.this.id
+  tags                     = var.tags
 }
 # --
 
@@ -37,9 +39,10 @@ resource "azurerm_cdn_frontdoor_endpoint" "this" {
 
 resource "azurerm_cdn_frontdoor_firewall_policy" "this" {
   name                              = var.name
-  resource_group_name              = var.resource_group_name
-  mode                             = "Prevention"
+  resource_group_name               = var.resource_group_name
+  mode                              = "Prevention"
   custom_block_response_status_code = 403
-  custom_block_response_body        = base64encode("Access denied by WAF policy")
-  sku_name            = "Standard_AzureFrontDoor"
+  custom_block_response_body = base64encode("Access denied by WAF policy")
+  sku_name                          = "Standard_AzureFrontDoor"
+  tags                              = var.tags
 }

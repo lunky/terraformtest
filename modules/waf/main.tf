@@ -4,5 +4,6 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "this" {
   mode                              = "Prevention"
   sku_name                          = "Standard_AzureFrontDoor"
   custom_block_response_status_code = 403
-  custom_block_response_body        = base64encode("Access denied by WAF policy")
+  custom_block_response_body = base64encode("Access denied by WAF policy")
+  tags                              = var.tags
 }
