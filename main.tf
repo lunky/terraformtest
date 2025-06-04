@@ -26,7 +26,8 @@ module "postgres" {
 module "app_service_plan" {
   source              = "./modules/app_service_plan"
   name                = local.app_service_plan_name
-  location            = var.location
+  # location            = var.location
+  location            = "East US" # hardcoded for now - there doesn't seem to be an app service plan in WestUs
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
 }
