@@ -1,7 +1,7 @@
 resource "azurerm_cdn_frontdoor_firewall_policy" "this" {
   name                              = var.name
   resource_group_name               = var.resource_group_name
-  sku_name                          = azurerm_cdn_frontdoor_profile.this.sku_name
+  sku_name                          = var.sku_name
   enabled                           = true
   mode                             = "Prevention"
   custom_block_response_status_code = 403
@@ -42,7 +42,6 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "this" {
     }
   }
 
-  # Keep a managed rule set for basic security
   managed_rule {
     type    = "DefaultRuleSet"
     version = "1.0"
