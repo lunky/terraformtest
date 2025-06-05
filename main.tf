@@ -28,6 +28,8 @@ module "app_service_plan" {
   name = local.app_service_plan_name
   location            = var.location
   resource_group_name = module.resource_group.name
+  app_service_plan_sku_name = "S1" # Standard tier for production
+  # app_service_plan_sku_name = "F1" # Free tier for development/testing
   tags                = local.default_tags
 }
 
