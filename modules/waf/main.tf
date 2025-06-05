@@ -41,10 +41,4 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "this" {
       match_values       = ["0.0.0.0/0", "::/0"]
     }
   }
-
-  managed_rule {
-    type    = "DefaultRuleSet"
-    version = "1.0"
-    action  = "Block"
-  }
 }
