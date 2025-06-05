@@ -8,9 +8,9 @@ resource "azurerm_postgresql_flexible_server" "this" {
   version               = "13"
   storage_mb            = 32768
   delegated_subnet_id   = null
-  zone =  "1"
+  zone =  "2"
   high_availability {
-    mode = "SameZone"
+    mode = "ZoneRedundant"
   }
   tags                  = var.tags
 }

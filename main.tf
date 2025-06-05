@@ -67,7 +67,7 @@ module "virtual_network_link" {
   source              = "./modules/virtual_network_link"
   name                = local.vnet_link_name
   resource_group_name = module.resource_group.name
-  dns_zone_name       = local.private_dns_zone_name
+  dns_zone_name       = module.private_dns_zone.name
   virtual_network_id  = module.network.id
   tags                = local.default_tags
 }
