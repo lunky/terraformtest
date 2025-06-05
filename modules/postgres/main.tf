@@ -1,17 +1,8 @@
-terraform {
-  required_providers {
-    postgresql = {
-      source  = "cyrilgdn/postgresql"
-      version = "~> 1.25.0"
-    }
-  }
-}
-
 resource "azurerm_postgresql_flexible_server" "this" {
   name                   = var.name
   location               = var.location
   resource_group_name    = var.resource_group_name
-  administrator_login    = "elfDevAdmin"
+  administrator_login    = var.admin_user
   administrator_password = var.admin_password
   sku_name               = "B_Standard_B1ms"
   version                = "13"
@@ -31,20 +22,22 @@ resource "azurerm_postgresql_flexible_server_database" "this" {
   collation = "en_US.utf8"
 }
 
-# Create a user role
-resource "azurerm_postgresql_flexible_server_configuration" "pgaudit" {
-  name      = "pgaudit.role"
-  server_id = azurerm_postgresql_flexible_server.this.id
-  value     = "rds_superuser"
-}
+resource "null_resource" "create_db_user" {
+  triggers = {
+    server_id = azurerm_postgresql_flexible_server.this.id
+  }
 
-
-# Create a PostgreSQL user using the cyrilgdn provider
-
-resource "postgresql_role" "app_user" {
-  name     = var.database_user
-  login    = true
-  password = var.database_password
+  provisioner "local-exec" {
+    command = <<-EOT
+      az postgres flexible-server execute \
+        --name ${azurerm_postgresql_flexible_server.this.name} \
+        --resource-group ${var.resource_group_name} \
+        --admin-user ${azurerm_postgresql_flexible_server.this.administrator_login} \
+        --admin-password '${var.admin_password}' \
+        --database-name ${azurerm_postgresql_flexible_server_database.this.name} \
+        --query-text "DO $$BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${var.database_user}') THEN CREATE USER ${var.database_user} WITH PASSWORD '${var.database_password}'; GRANT CONNECT ON DATABASE ${azurerm_postgresql_flexible_server_database.this.name} TO ${var.database_user}; GRANT USAGE ON SCHEMA public TO ${var.database_user}; END IF; END$$;"
+    EOT
+  }
 
   depends_on = [
     azurerm_postgresql_flexible_server_database.this
