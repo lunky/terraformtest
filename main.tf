@@ -22,7 +22,7 @@ module "postgres" {
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
   database_name       = local.database_name  # confirm these variables
-  database_user       = local.database_user  # confirm these variables
+  database_user       = local.database_name  # confirm these variables
   database_password   = local.database_password  # confirm these variables
 }
 
