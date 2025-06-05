@@ -38,3 +38,11 @@ variable "action_group_name" {
 variable "log_analytics_workspace_name" {
     default = "elf-log-analytics-workspace"
 }
+variable "database_name" {
+    default = "elf"
+}
+variable "database_user" {
+  default = "elfDevAdmin"
+}
+variable "database_password" {
+}

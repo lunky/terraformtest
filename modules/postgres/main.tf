@@ -14,3 +14,17 @@ resource "azurerm_postgresql_flexible_server" "this" {
   # }
   tags                  = var.tags
 }
+
+resource "azurerm_postgresql_flexible_server_database" "this" {
+  name      = var.database_name
+  server_id = azurerm_postgresql_flexible_server.this.id
+  charset   = "UTF8"
+  collation = "en_US.utf8"
+}
+
+# Create a user role
+resource "azurerm_postgresql_flexible_server_configuration" "pgaudit" {
+  name      = "pgaudit.role"
+  server_id = azurerm_postgresql_flexible_server.this.id
+  value     = "rds_superuser"
+}

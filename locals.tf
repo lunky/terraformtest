@@ -11,6 +11,9 @@ locals {
   waf_name                     = "${var.waf_name}${terraform.workspace}"
   action_group_name            = "${var.action_group_name}-${terraform.workspace}"
   log_analytics_workspace_name = "${var.log_analytics_workspace_name}-${terraform.workspace}"
+  database_user                = var.database_user
+  database_name                = var.database_name
+  database_password            = var.database_password
   default_tags = {
     environment = terraform.workspace
     created_by  = "Terraform"

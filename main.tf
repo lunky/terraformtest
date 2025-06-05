@@ -21,6 +21,9 @@ module "postgres" {
   admin_password      = var.postgres_admin_password
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
+  database_name       = local.database_name  # confirm these variables
+  database_user       = local.database_user  # confirm these variables
+  database_password   = local.database_password  # confirm these variables
 }
 
 module "app_service_plan" {
@@ -56,7 +59,7 @@ module "waf" {
   name                = local.waf_name
   resource_group_name = module.resource_group.name
   sku_name            = module.front_door.sku_name
-  tags = local.default_tags
+  tags                = local.default_tags
 }
 
 module "private_dns_zone" {
