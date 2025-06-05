@@ -15,7 +15,7 @@ variable "vnet_link_name" {
     default = "vnet-link"
 }
 variable "location" {
-  default = "West US 3"
+  default = "West US"
 }
 variable "app_service_plan_name" {
     default = "elf-app-service-plan"
