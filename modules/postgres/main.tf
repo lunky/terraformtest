@@ -70,8 +70,15 @@ resource "null_resource" "wait_for_firewall" {
     firewall_id = azurerm_postgresql_flexible_server_firewall_rule.tfcloud.id
   }
 }
+
+# Add a time delay after firewall rule creation
+resource "time_sleep" "wait_for_firewall" {
+  depends_on = [azurerm_postgresql_flexible_server_firewall_rule.tfcloud]
+  create_duration = "30s"
+}
+
 resource "postgresql_role" "user" {
-  depends_on = [ azurerm_postgresql_flexible_server_firewall_rule.tfcloud ]
+  depends_on = [time_sleep.wait_for_firewall]
   name     = var.username
   login    = true
   password = var.password
