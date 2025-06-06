@@ -36,8 +36,6 @@ provider "postgresql" {
   database        = local.database_name
   username        = "${module.postgres.administrator_login}@${var.postgres_name}"  # Add server name to username
   password        = var.postgres_admin_password
-  sslmode         = "verify-full"
+  sslmode         = "require"
   connect_timeout = 30
-  # Add SSL certificates for Azure PostgreSQL
-  sslrootcert    = "/etc/ssl/certs/Baltimore_CyberTrust_Root.pem"  # Azure's root certificate
 }
