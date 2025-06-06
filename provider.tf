@@ -30,13 +30,13 @@ provider "azurerm" {
   features {}
 }
 
-provider "postgresql" {
-  host            = module.postgres.host
-  port            = 5432
-  database        = local.database_name
-  username        = module.postgres.administrator_login
-  password        = var.postgres_admin_password
-  sslmode         = "require"
-  superuser = false  # Add this line to prevent the provider from trying to read the password
-  connect_timeout = 30
-}
+# provider "postgresql" {
+#   host            = module.postgres.host
+#   port            = 5432
+#   database        = local.database_name
+#   username        = module.postgres.administrator_login
+#   password        = var.postgres_admin_password
+#   sslmode         = "require"
+#   superuser = false  # Add this line to prevent the provider from trying to read the password
+#   connect_timeout = 30
+# }

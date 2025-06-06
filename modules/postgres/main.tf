@@ -38,24 +38,24 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "tfcloud" {
   }
 }
 # This null_resource will trigger the destruction of the firewall rule
-# resource "null_resource" "firewall_cleanup" {
-#   triggers = {
-#     rotation_time = time_rotating.firewall_rotation.rotation_rfc3339
-#     rotation_time = time_rotating.firewall_rotation.rotation_rfc3339
-#
-#   }
-#
-#   provisioner "local-exec" {
-#     when    = destroy
-#     command = "sleep 30"  # Give time for PostgreSQL operations to complete
-#   }
-#
-#   depends_on = [
-#     postgresql_role.user,
-#     postgresql_grant.connect,
-#     azurerm_postgresql_flexible_server_firewall_rule.tfcloud
-#   ]
-# }
+resource "null_resource" "firewall_cleanup" {
+  triggers = {
+    rotation_time = time_rotating.firewall_rotation.rotation_rfc3339
+    rotation_time = time_rotating.firewall_rotation.rotation_rfc3339
+
+  }
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = "sleep 30"  # Give time for PostgreSQL operations to complete
+  }
+
+  depends_on = [
+    postgresql_role.user,
+    postgresql_grant.connect,
+    azurerm_postgresql_flexible_server_firewall_rule.tfcloud
+  ]
+}
 
 resource "time_rotating" "firewall_rotation" {
   rotation_minutes = 5
@@ -77,19 +77,19 @@ resource "time_sleep" "wait_for_firewall" {
   create_duration = "15s"
 }
 
-# resource "postgresql_role" "user" {
-#   depends_on = [time_sleep.wait_for_firewall,
-#     azurerm_postgresql_flexible_server_database.this
-#   ]
-#   name     = var.username
-#   login    = true
-#   password = var.password
-# }
-#
-# resource "postgresql_grant" "connect" {
-#
-#   database    = var.database
-#   role        = postgresql_role.user.name
-#   object_type = "database"
-#   privileges  = ["CONNECT"]
-# }
+resource "postgresql_role" "user" {
+  depends_on = [time_sleep.wait_for_firewall,
+    azurerm_postgresql_flexible_server_database.this
+  ]
+  name     = var.username
+  login    = true
+  password = var.password
+}
+
+resource "postgresql_grant" "connect" {
+
+  database    = var.database
+  role        = postgresql_role.user.name
+  object_type = "database"
+  privileges  = ["CONNECT"]
+}
