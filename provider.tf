@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.117.1"
     }
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "~> 1.21.0"
+    }
   }
   cloud {
     organization = "np-gw-elf"
@@ -15,4 +19,14 @@ terraform {
 
 provider "azurerm" {
   features {}
+}
+
+provider "postgresql" {
+  host            = module.postgres.host
+  port            = 5432
+  database        = local.database_name
+  username        = module.postgres.administrator_login
+  password        = var.postgres_admin_password
+  sslmode         = "require"
+  connect_timeout = 15
 }
