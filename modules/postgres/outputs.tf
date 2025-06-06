@@ -10,3 +10,10 @@ output "host" {
 output "administrator_login" {
   value = azurerm_postgresql_flexible_server.this.administrator_login
 }
+
+output "detected_ip" {
+  value = data.http.tfcloud_ip.response_body
+}
+output "firewall_rule" {
+  value = azurerm_postgresql_flexible_server_firewall_rule.tfcloud.id
+}
