@@ -61,8 +61,10 @@ variable "ARM_CLIENT_SECRET" {
 
 variable "ARM_TENANT_ID" {
   type = string
+  sensitive = true
 }
 
 variable "ARM_SUBSCRIPTION_ID" {
   type = string
+  sensitive = true
 }
