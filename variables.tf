@@ -1,6 +1,9 @@
 # variables.tf
 # these must be defined in tfcloud
 variable "postgres_name" { }
+variable "postgres_admin_user" {
+  default = "elfDevAdmin"
+}
 variable "postgres_admin_password" { sensitive = true }
 variable "private_dns_zone_name" {
 }
@@ -42,7 +45,7 @@ variable "database_name" {
     default = "elf"
 }
 variable "database_user" {
-  default = "elfDevAdmin"
+  default = "elfDev"
 }
 variable "database_password" {
 }
