@@ -37,5 +37,6 @@ provider "postgresql" {
   username        = module.postgres.administrator_login #"@${local.postgres_name}.postgres.database.azure.com"  # Add server name to username
   password        = var.postgres_admin_password
   sslmode         = "require"
+  superuser       = false  # Add this line to prevent the provider from trying to read the password
   connect_timeout = 30
 }
