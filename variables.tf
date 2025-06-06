@@ -46,3 +46,23 @@ variable "database_user" {
 }
 variable "database_password" {
 }
+
+# these are defined in tfcloud and they are required, they're added here to keep
+# tfcloud from complaining that there is a "Value for undeclared variable"
+variable "ARM_CLIENT_ID" {
+  type      = string
+  sensitive = true
+}
+
+variable "ARM_CLIENT_SECRET" {
+  type      = string
+  sensitive = true
+}
+
+variable "ARM_TENANT_ID" {
+  type = string
+}
+
+variable "ARM_SUBSCRIPTION_ID" {
+  type = string
+}
