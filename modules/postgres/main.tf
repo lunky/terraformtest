@@ -77,19 +77,19 @@ resource "time_sleep" "wait_for_firewall" {
   create_duration = "15s"
 }
 
-resource "postgresql_role" "user" {
-  depends_on = [time_sleep.wait_for_firewall,
-    azurerm_postgresql_flexible_server_database.this
-  ]
-  name     = var.username
-  login    = true
-  password = var.password
-}
-
-resource "postgresql_grant" "connect" {
-
-  database    = var.database
-  role        = postgresql_role.user.name
-  object_type = "database"
-  privileges  = ["CONNECT"]
-}
+# resource "postgresql_role" "user" {
+#   depends_on = [time_sleep.wait_for_firewall,
+#     azurerm_postgresql_flexible_server_database.this
+#   ]
+#   name     = var.username
+#   login    = true
+#   password = var.password
+# }
+#
+# resource "postgresql_grant" "connect" {
+#
+#   database    = var.database
+#   role        = postgresql_role.user.name
+#   object_type = "database"
+#   privileges  = ["CONNECT"]
+# }
