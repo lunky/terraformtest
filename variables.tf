@@ -44,11 +44,6 @@ variable "log_analytics_workspace_name" {
 variable "database_name" {
     default = "elf"
 }
-variable "database_user" {
-  default = "elfDev"
-}
-variable "database_password" {
-}
 
 # these are defined in tfcloud and they are required, they're added here to keep
 # tfcloud from complaining that there is a "Value for undeclared variable"
