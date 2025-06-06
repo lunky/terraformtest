@@ -33,11 +33,24 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "tfcloud" {
     create_before_destroy = true
   }
 }
+resource "azurerm_postgresql_flexible_server_firewall_rule" "tfcloud_additional" {
+  name             = "allow-tfcloud-temporary-2"
+  server_id        = azurerm_postgresql_flexible_server.this.id
+  start_ip_address = "99.83.150.238"
+  end_ip_address   = "99.83.150.238"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 
 # This null_resource will trigger the destruction of the firewall rule
 resource "null_resource" "firewall_cleanup" {
   triggers = {
     rotation_time = time_rotating.firewall_rotation.rotation_rfc3339
+    rotation_time = time_rotating.firewall_rotation.rotation_rfc3339
+
   }
 
   provisioner "local-exec" {
@@ -59,14 +72,20 @@ resource "time_rotating" "firewall_rotation" {
 
 # Add a dependency to ensure the firewall rule is created before attempting PostgreSQL provider operations
 resource "null_resource" "wait_for_firewall" {
-  depends_on = [azurerm_postgresql_flexible_server_firewall_rule.tfcloud]
-  
+  depends_on = [
+    azurerm_postgresql_flexible_server_firewall_rule.tfcloud,
+    azurerm_postgresql_flexible_server_firewall_rule.tfcloud_additional
+  ]
+
   triggers = {
-    firewall_id = azurerm_postgresql_flexible_server_firewall_rule.tfcloud.id
+    firewall_id = "${azurerm_postgresql_flexible_server_firewall_rule.tfcloud.id},${azurerm_postgresql_flexible_server_firewall_rule.tfcloud_additional.id}"
   }
 }
 resource "postgresql_role" "user" {
-  depends_on = [azurerm_postgresql_flexible_server_firewall_rule.tfcloud]
+  depends_on = [
+    azurerm_postgresql_flexible_server_firewall_rule.tfcloud,
+    azurerm_postgresql_flexible_server_firewall_rule.tfcloud_additional
+  ]
   name     = var.username
   login    = true
   password = var.password
