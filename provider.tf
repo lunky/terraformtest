@@ -31,7 +31,7 @@ provider "azurerm" {
 }
 
 provider "postgresql" {
-  host            = "elf-dev-v3-terraformtest.postgres.database.azure.com" #module.postgres.host
+  host            = module.postgres.host
   port            = 5432
   database        = local.database_name
   username        = module.postgres.administrator_login #"@${local.postgres_name}.postgres.database.azure.com"  # Add server name to username
