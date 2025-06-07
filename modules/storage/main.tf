@@ -7,3 +7,8 @@ resource "azurerm_storage_account" "this" {
   account_replication_type = "LRS"
   tags                     = var.tags
 }
+resource "azurerm_storage_container" "container" {
+  name                  = var.container_name
+  storage_account_name  = azurerm_storage_account.this.name
+  container_access_type = "blob"
+}

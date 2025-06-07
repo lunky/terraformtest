@@ -1,6 +1,6 @@
 # variables.tf
 # these must be defined in tfcloud
-variable "postgres_name" { }
+variable "postgres_name" {}
 variable "postgres_admin_user" {
   default = "elfDevAdmin"
 }
@@ -15,34 +15,34 @@ variable "vnet_name" {
   default = "vnet"
 }
 variable "vnet_link_name" {
-    default = "vnet-link"
+  default = "vnet-link"
 }
 variable "location" {
   default = "West US"
 }
 variable "app_service_plan_name" {
-    default = "elf-app-service-plan"
+  default = "elf-app-service-plan"
 }
 variable "web_app_name" {
-    default = "elf-web-app"
+  default = "elf-web-app"
 }
 variable "storage_account_name" {
-    default = "elfstorage"
+  default = "elfstorage"
 }
 variable "front_door_name" {
-    default = "elffrontdoor"
+  default = "elffrontdoor"
 }
 variable "waf_name" {
-    default = "elfwafpolicy"
+  default = "elfwafpolicy"
 }
 variable "action_group_name" {
-    default = "elf-action-group"
+  default = "elf-action-group"
 }
 variable "log_analytics_workspace_name" {
-    default = "elf-log-analytics-workspace"
+  default = "elf-log-analytics-workspace"
 }
 variable "database_name" {
-    default = "elf"
+  default = "elf"
 }
 variable "database_user" {
 }
@@ -64,4 +64,7 @@ variable "ARM_CLIENT_SECRET" {
 variable "ARM_TENANT_ID" {
   type = string
   sensitive = true
+}
+variable "images_storage_container_name" {
+  default = "images"
 }

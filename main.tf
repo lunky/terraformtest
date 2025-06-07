@@ -49,7 +49,7 @@ module "web_app" {
   database_name                           = local.database_name
   azure_storage_base_url                  = module.storage.blob_storage_url
   azure_storage_connection_string         = module.storage.blob_storage_connection_string
-  azure_storage_container_name            = "images"
+  azure_storage_container_name = var.images_storage_container_name
   applicationinsights_connection_string   = module.application_insights.connection_string
   applicationinsights_instrumentation_key = module.application_insights.instrumentation_key
 
@@ -94,6 +94,7 @@ module "storage" {
   location            = var.location
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
+  container_name = var.images_storage_container_name
 }
 
 module "action_group" {
