@@ -24,8 +24,8 @@ module "postgres" {
   tags                = local.default_tags
   database_name = local.database_name  # confirm this variables
 
-  private_dns_zone_id = module.private_dns_zone.id
-  subnet_id           = module.network.private_endpoints_subnet_id
+  private_dns_zone_id        = module.private_dns_zone.id
+  private_endpoint_subnet_id = module.network.private_endpoints_subnet_id
 }
 
 

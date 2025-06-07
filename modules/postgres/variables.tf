@@ -8,4 +8,6 @@ variable "admin_user" { }
 variable "tags" { }
 variable "database_name" { }
 variable "private_dns_zone_id" {}
-variable "subnet_id" {}
+variable "private_endpoint_subnet_id" {
+  description = "Subnet ID for the private endpoint (must be non-delegated)"
+}
