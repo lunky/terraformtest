@@ -12,9 +12,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
   private_dns_zone_id = var.private_dns_zone_id
   delegated_subnet_id = var.subnet_id
 
-  # Important: Remove any public access
-  public_network_access_enabled = false
-  # Enable private access
+  public_network_access_enabled = true
 
   tags                   = var.tags
 }
