@@ -117,7 +117,6 @@ module "application_insights" {
   source              = "./modules/application_insights"
   name                = "${var.web_app_name}-appinsights"
   location            = var.location
-  resource_group_name = var.resource_group
-  tags                = {
-  }
+  resource_group_name = module.resource_group.name
+  tags                = local.default_tags
 }
