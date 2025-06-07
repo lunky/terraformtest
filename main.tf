@@ -26,9 +26,6 @@ module "postgres" {
 
   private_dns_zone_id   = module.private_dns_zone.id
   subnet_id             = module.network.private_endpoints_subnet_id
-  vnet_id               = module.network.id
-  private_dns_zone_name = module.private_dns_zone.name
-
 }
 
 
