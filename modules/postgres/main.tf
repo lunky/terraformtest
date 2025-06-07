@@ -8,13 +8,28 @@ resource "azurerm_postgresql_flexible_server" "this" {
   version                = "13"
   storage_mb             = 32768
 
-  # Enable private access
-  delegated_subnet_id = var.subnet_id
-  private_dns_zone_id = var.private_dns_zone_id
-
   public_network_access_enabled = true
 
-  tags                   = var.tags
+  tags = var.tags
+}
+# Create private endpoint for the PostgreSQL server
+resource "azurerm_private_endpoint" "postgres" {
+  name                = "${var.name}-endpoint"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  subnet_id           = var.subnet_id
+
+  private_service_connection {
+    name                           = "${var.name}-privateserviceconnection"
+    private_connection_resource_id = azurerm_postgresql_flexible_server.this.id
+    subresource_names = ["postgresqlServer"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name = "${var.name}-dns-zone-group"
+    private_dns_zone_ids = [var.private_dns_zone_id]
+  }
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
