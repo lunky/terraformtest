@@ -15,3 +15,6 @@ variable "applicationinsights_instrumentation_key" {
 }
 variable "applicationinsights_connection_string" {
 }
+variable "subnet_id" {
+  description = "ID of the subnet for VNet integration"
+}

@@ -22,7 +22,13 @@ module "postgres" {
   admin_user          = var.postgres_admin_user
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
-  database_name       = local.database_name  # confirm this variables
+  database_name = local.database_name  # confirm this variables
+
+  private_dns_zone_id   = module.private_dns_zone.id
+  subnet_id             = module.network.private_endpoints_subnet_id
+  vnet_id               = module.network.id
+  private_dns_zone_name = module.private_dns_zone.name
+
 }
 
 
@@ -52,7 +58,7 @@ module "web_app" {
   azure_storage_container_name = var.images_storage_container_name
   applicationinsights_connection_string   = module.application_insights.connection_string
   applicationinsights_instrumentation_key = module.application_insights.instrumentation_key
-
+  subnet_id                    = module.network.private_endpoints_subnet_id
 }
 
 module "front_door" {

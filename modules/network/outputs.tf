@@ -6,3 +6,6 @@ output "id" {
 output "name" {
   value = azurerm_virtual_network.this.name
 }
+output "private_endpoints_subnet_id" {
+  value = azurerm_subnet.private_endpoints.id
+}
