@@ -5,4 +5,5 @@ resource "azurerm_application_insights" "this" {
   application_type    = var.application_type
   retention_in_days   = var.retention_in_days
   tags                = var.tags
+  workspace_id        = var.workspace_id
 }
