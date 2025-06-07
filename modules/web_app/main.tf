@@ -29,7 +29,7 @@ resource "azurerm_linux_web_app" "this" {
     "SnapshotDebugger_EXTENSION_VERSION"              = "disabled"
     "WEBSITE_FORWARDED_HOST_HEADER_NAME"              = "X-Forwarded-Host"
     "WEBSITE_FORWARDED_PROTO_HEADER_NAME"             = "X-Forwarded-Proto"
-    "WEBSITE_HTTPLOGGING_RETENTION_DAYS"              = "7"
+    "WEBSITE_HTTPLOGGING_RETENTION_DAYS"              = 7
     "XDT_MicrosoftApplicationInsights_BaseExtensions" = "disabled"
     "XDT_MicrosoftApplicationInsights_Mode"           = "recommended"
     "XDT_MicrosoftApplicationInsights_PreemptSdk"     = "disabled"
