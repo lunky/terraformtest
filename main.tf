@@ -24,8 +24,8 @@ module "postgres" {
   tags                = local.default_tags
   database_name = local.database_name  # confirm this variables
 
-  private_dns_zone_id   = module.private_dns_zone.id
-  subnet_id             = module.network.private_endpoints_subnet_id
+  private_dns_zone_id = module.private_dns_zone.id
+  subnet_id           = module.network.private_endpoints_subnet_id
 }
 
 
@@ -55,7 +55,7 @@ module "web_app" {
   azure_storage_container_name = var.images_storage_container_name
   applicationinsights_connection_string   = module.application_insights.connection_string
   applicationinsights_instrumentation_key = module.application_insights.instrumentation_key
-  subnet_id                    = module.network.private_endpoints_subnet_id
+  subnet_id                    = module.network.app_service_subnet_id
 }
 
 module "front_door" {
