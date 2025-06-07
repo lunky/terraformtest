@@ -27,7 +27,7 @@ resource "azurerm_private_endpoint" "postgres" {
   }
 
   private_dns_zone_group {
-    name = "${var.name}-dns-zone-group"
+    name = "default"
     private_dns_zone_ids = [var.private_dns_zone_id]
   }
 }
