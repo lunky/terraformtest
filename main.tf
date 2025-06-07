@@ -22,7 +22,7 @@ module "postgres" {
   admin_user          = var.postgres_admin_user
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
-  database_name = local.database_name  # confirm this variables
+  database_name       = local.database_name  # confirm this variables
 }
 
 
@@ -43,6 +43,16 @@ module "web_app" {
   resource_group_name = module.resource_group.name
   app_service_plan_id = module.app_service_plan.id
   tags                = local.default_tags
+  postgres_host       = module.postgres.host
+  database_user       = local.database_user
+  database_password   = local.database_user_password
+  database_name       = local.database_name
+  azure_storage_base_url = module.storage.blob_storage_url
+  azure_storage_connection_string = module.storage.blob_storage_connection_string
+  azure_storage_container_name =  "images"
+  applicationinsights_connection_string = module.application_insights.connection_string
+    applicationinsights_instrumentation_key = module.application_insights.instrumentation_key
+
 }
 
 module "front_door" {
@@ -101,4 +111,13 @@ module "log_analytics" {
   location            = var.location
   resource_group_name = module.resource_group.name
   tags                = local.default_tags
+}
+
+module "application_insights" {
+  source              = "./modules/application_insights"
+  name                = "${var.web_app_name}-appinsights"
+  location            = var.location
+  resource_group_name = var.resource_group
+  tags                = {
+  }
 }
