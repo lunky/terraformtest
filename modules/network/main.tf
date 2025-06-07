@@ -12,7 +12,16 @@ resource "azurerm_subnet" "private_endpoints" {
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes = ["10.0.3.0/24"]  # Adjust CIDR as needed
 
-  # These are the current recommended settings for private endpoints
-  private_link_service_network_policies_enabled = false
+
+  # Add delegation for PostgreSQL Flexible Server
+  delegation {
+    name = "fs"
+    service_delegation {
+      name = "Microsoft.DBforPostgreSQL/flexibleServers"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+      ]
+    }
+  }
   service_endpoints = ["Microsoft.Storage", "Microsoft.Sql"]
 }

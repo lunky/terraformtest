@@ -9,5 +9,3 @@ variable "tags" { }
 variable "database_name" { }
 variable "private_dns_zone_id" {}
 variable "subnet_id" {}
-variable "vnet_id" {}
-variable "private_dns_zone_name" {}

@@ -14,16 +14,9 @@ resource "azurerm_postgresql_flexible_server" "this" {
 
   # Important: Remove any public access
   public_network_access_enabled = false
+  # Enable private access
 
   tags                   = var.tags
-}
-
-# Add private DNS zone A record
-resource "azurerm_private_dns_zone_virtual_network_link" "postgres" {
-  name                  = "${var.name}-pdz-vnet-link"
-  private_dns_zone_name = var.private_dns_zone_name
-  resource_group_name   = var.resource_group_name
-  virtual_network_id    = var.vnet_id
 }
 
 resource "azurerm_postgresql_flexible_server_database" "this" {
